@@ -18,7 +18,7 @@ class Comment extends Sequelize.Model{
             modelName: 'Comment',
             tableName: 'comments',
             paranoid: false,
-            charset: 'utfmb4',
+            charset: 'utf8mb4',
             collate: 'utf8mb4_general_ci',
         });
     }

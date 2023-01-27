@@ -4,8 +4,8 @@ const kakao = require('./kakaoStrategy');
 const User = require('../models/user');
 
 module.exports = () => {
-    passport.serializeUser((user, done) => {
-        done(null, user.id);
+    passport.serializeUser((user, done) => { // user === exUser
+        done(null, user.id); // user id만 추출
     });
 
     passport.deserializeUser((id, done) => {

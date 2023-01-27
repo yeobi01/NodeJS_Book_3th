@@ -45,15 +45,17 @@ app.use(session( {
     }
 }))
 app.use(passport.initialize()); // req.user, req.login, req.isAuthenticate, req.logout
-app.use(passport.session); // connect.sid라는 이름으로 세션 쿠키가 브라우저로 전송
+app.use(passport.session()); // connect.sid라는 이름으로 세션 쿠키가 브라우저로 전송
 
 app.use('/', pageRouter);
 app.use('/auth', authRouter);
+
 app.use((req, res, next) => { // 404 NOT FOUND
     const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
     error.status = 404;
     next(error);
 });
+
 app.use((err, req, res, next) => {
     res.locals.message = err.message;
     res.locals.error = process.env.NODE_ENV !== 'production' ? err : {}; // 에러 로그를 서비스한테 넘기기

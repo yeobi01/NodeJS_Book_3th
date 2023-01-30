@@ -20,6 +20,7 @@ module.exports = () => {
                 }
             } else{
                 done(null, false, { message: '가입되지 않은 회원입니다.' })
+                // done이 호출되면 controllers/auth.js의 login부분의 콜백함수로 가짐
             }
         } catch (error) {
             console.error(error);          

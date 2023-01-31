@@ -25,7 +25,6 @@ exports.renderMain = async (req, res, next) => {
     } catch(error){
         console.error(error);
     }
-
 };
 
 exports.renderHashtag = async (req, res, next) => {

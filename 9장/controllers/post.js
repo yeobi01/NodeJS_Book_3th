@@ -40,12 +40,30 @@ exports.like = async (req, res, next) => {
         let postId = req.url.substring(1, idx);
         const post = await Post.findOne({ where: { id: postId }});
         if(post){
-            await post.addLiking(parseInt(req.params.id, 10));
+            await post.addLiking(parseInt(req.user.id, 10));
             res.send('success');
         } else{
             res.status(404).send('no user');
         }
         
+    } catch(error){
+        console.error(error);
+        next(error);
+    }
+}
+
+exports.unlike = async (req, res, next) => {
+    try {
+        console.log(req.url);
+        let idx = req.url.indexOf('/', 1);
+        let postId = req.url.substring(1, idx);
+        const post = await Post.findOne({ where: { id: postId }});
+        if(post){
+            await post.removeLiking(parseInt(req.user.id, 10));
+            res.send('success');
+        } else{
+            res.status(404).send('no user');
+        }
     } catch(error){
         console.error(error);
         next(error);

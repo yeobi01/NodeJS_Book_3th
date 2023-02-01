@@ -33,18 +33,18 @@ sequelize.sync()
     })
 
 app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); // public폴더를 프론트에서 접근할 수 있도록 허용
 app.use('/img', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json()); // req.body를 ajax json 요청으로부터
-app.use(express.urlencoded({ extended: false })); // req.body 폼으로부터
+app.use(express.urlencoded({ extended: false })); // req.body 폼 요청 받을 수 있음
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session( {
     resave: false,
     saveUninitialized: false,
-    secret: process.env.COKKIE_SECRET,
+    secret: process.env.COKKIE_SECRET, // .env로 숨기기
     cookie: {
         httpOnly: true,
-        secure: false,
+        secure: false, // https 적용할 때 true
     }
 }))
 app.use(passport.initialize()); // req.user, req.login, req.isAuthenticate, req.logout

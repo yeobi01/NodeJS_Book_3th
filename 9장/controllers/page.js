@@ -55,5 +55,29 @@ exports.updateProfile = (req, res, next) => {
     res.render('update', { title: '정보 수정 - NodeBird'});
 }
 
+exports.renderContent = async (req, res, next) => {
+    const query = req.query.id;
+    if(!query) {
+        return res.redirect('/');
+    }
+    try{
+        const user = await User.findOne({ where: { id: query }});
+        let posts = [];
+        if(user) {
+            posts = await user.getPosts({
+                include: [{ model: User, attributes: ['id', 'nick']}],
+                order: [['createdAt', 'DESC']]
+            });
+        }
+        res.render('main', {
+            title: `${user.nick} | NodeBird`,
+            twits: posts,
+        })
+    } catch(error){
+        console.error(error);
+        next(error);
+    }
+}
+
 // 컨트롤러 : 서비스를 호출함
 // 라우터 -> 컨트롤러(요청, 응답 안다) -> 서비스(요청, 응답 모른다)

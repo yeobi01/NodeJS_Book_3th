@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
 class Domain extends Sequelize.Model{
-    static initiate(){
-        Domain.initiate({
+    static initiate(sequelize){
+        Domain.init({
             host: {
                 type: Sequelize.STRING(80),
                 allowNull: false,
@@ -21,12 +21,12 @@ class Domain extends Sequelize.Model{
             paranoid: true,
             modelName: 'Domain',
             tableName: 'domains',
-        })
+        });
     }
 
     static associate(db){
-        db.Domain.belongTo(db.User);
+        db.Domain.belongsTo(db.User);
     }
-}
+};
 
 module.exports = Domain;

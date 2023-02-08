@@ -19,7 +19,7 @@ const request = async (req, api) => {
             delete req.session.jwt;
             return request(req, api);
         }
-        throw error.response;
+        return error.response;
     }
 };
 
@@ -41,6 +41,10 @@ exports.searchByHashtag = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.renderMain = (req, res) => {
+    res.render('main', { key: process.env.CLIENT_SECRET });
+}
 
 exports.test = async (req, res, next) => { // 토큰 테스트 라우터
     try {

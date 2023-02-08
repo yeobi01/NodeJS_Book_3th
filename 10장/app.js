@@ -11,6 +11,7 @@ dotenv.config();
 const authRouter = require('./routes/auth');
 const indexRouter = require('./routes');
 const v1Router = require('./routes/v1');
+const v2Router = require('./routes/v2');
 const { sequelize } = require('./models');
 const passportConfig = require('./passport');
 
@@ -49,6 +50,7 @@ app.use(passport.session());
 
 app.use('/auth', authRouter);
 app.use('/v1', v1Router);
+app.use('/v2', v2Router);
 app.use('/', indexRouter);
 
 
